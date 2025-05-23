@@ -33,8 +33,10 @@ sts.kurtosis(x) -> 0이면 정규분포, 0보다 크면 뾰족함, 0보다 작�
     sts.uniform.rvs(a=0, b=1, size=100) : 0~1사이에서 균등하게 표본추출된 확률분포 
 
   이산확률분포
-    sts.bernoulli.rvs(p, size=100) : 독립시행 !!1번!!(베루누이시행)으로 추출된 베루누이 분포
+    sts.bernoulli.rvs(p, size=100) : 독립시행 !!1번!!(베루누이시행)으로 추출된 베루누이 분포 
+        -> 값이 1 or 0이 확률에 따라 100개 ex) [1,0,1,1,0,0,1,1,1,0,1,0,0]
     sts.binom.rvs(n=시행횟수, p, size=100) 독립시행 !!n번!!으로 표본이 추출된 이항분포
+        -> n번 시도해서 성공횟수값을 100개    ex) [5,4,6,5,5,4,3,6,5,7] 
     sts.geom.rvs(p=성공확률, size=100) : 최초 성공할 때 까지 실패한 횟수를 갖는 기하분포
     sts.poisson.rvs(mu= 평균발생횟수, size=100) : 발생 가능성이 매우 작은 포아송분포
 
@@ -46,4 +48,11 @@ sts.kurtosis(x) -> 0이면 정규분포, 0보다 크면 뾰족함, 0보다 작�
 
   정규분포를 표준정규분포화(z) 하기:  (X - mu) / sigma # X는 정규분포
 
-    
+-이항검정 : stats.binomtest -> pvalue값 나옴
+예시) 게임에 이길 확률(p)이 40%이고, 게임의 시행회수가 50 일 때 95% 신뢰수준에서 검정    
+귀무가설(H0) : 게임에 이길 확률(p)는 40%와 차이가 없다 vs 대립가설(H1) : 게임에 이길 확률(p)는 40%와 차이가 있다
+ex) # 베르누이분포 표본 추출 
+binom_sample = stats.binom.rvs(n=1, p=p, size=50)
+k = np.count_nonzero(binom_sample) # k는 성공(1값) 개수  
+result = stats.binomtest(k=k, n=50, p=0.4, alternative='two-sided') #
+pvalue = result.pvalue # 이 값이 0.05보다 커야 이항분포와 차이가 없다 == 이항분포를 잘 따른다
