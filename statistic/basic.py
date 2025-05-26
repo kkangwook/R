@@ -54,5 +54,9 @@ sts.kurtosis(x) -> 0이면 정규분포, 0보다 크면 뾰족함, 0보다 작�
 ex) # 베르누이분포 표본 추출 
 binom_sample = stats.binom.rvs(n=1, p=p, size=50)
 k = np.count_nonzero(binom_sample) # k는 성공(1값) 개수  
-result = stats.binomtest(k=k, n=50, p=0.4, alternative='two-sided') #
+result = stats.binomtest(k=k, n=50, p=0.4, alternative='two-sided') # k: 성공횟수, n: 총시도수, p: 성공확률
 pvalue = result.pvalue # 이 값이 0.05보다 커야 이항분포와 차이가 없다 == 이항분포를 잘 따른다
+ex)150명의 합격자 중에서 남자 합격자가 62명일 때 남여 합격률에 차이가 있다고 할수 있는가? (신뢰수준 99%하에서 검정)
+result = stats.binomtest(k=62, n=150, p=0.5, alternative='two-sided')
+result.pvalue #이게 0.04나옴 -> 신뢰수준이 99퍼이므로 p-value가 0.01보다 작게나와야 다르다고 할수있음
+   #-> 만약 신뢰수준 95퍼에서 검정한다했으면 남여합격률에 차이가 있다고 판단
