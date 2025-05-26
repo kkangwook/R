@@ -127,3 +127,14 @@ from scipy import stats # 일원분산분석(One-way_ANOVA)
 from statsmodels.formula.api import ols # 이원분산분석모델 생성  
 import statsmodels.api as sm # 이원분산분석(Two_way_ANOVA) 
 
+# 일원분산분석(One-way ANOVA): 독립변수(x)1개, 종속변수(y)1개
+f_statistic, p_value = stats.f_oneway(group1, group2, group3) #그룹을 넣어줌 
+print("F-statistic:", f_statistic)
+print("p-value:", p_value)
+
+# 이원 분산분석(Two-way ANOVA): 독립변수(x)2개, 종속변수(y)1
+model = ols(' ~ type + time', data=data).fit()
+anova_table = sm.stats.anova_lm(model)
+print(anova_table)
+
+# 다원 변량 분산분석:독립변수(x)여러개, 종속변수(y) 여러개
