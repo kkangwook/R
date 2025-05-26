@@ -63,7 +63,7 @@ result.pvalue #이게 0.04나옴 -> 신뢰수준이 99퍼이므로 p-value가 0.
 
 
 
--가설검정
+---가설검정
 
           모수(모집단)   vs   통계량(표본)
 평균        µ(모평균)        X_bar(표본의 평균)
@@ -104,3 +104,26 @@ result.pvalue #이게 0.04나옴 -> 신뢰수준이 99퍼이므로 p-value가 0.
 
 4. 가설 기각 or 채택 설정
 유의수준 결정하고 p-value가 유의수준이하면 대립가설 채택, 유의수준이상이면 귀무가설 유지
+
+
+### t검정 -> 집단 2개
+from scipy import stats
+
+# 단일표본 t검정: 한 집단 평균차이 검정(모평균검정)
+result= stats.ttest_1samp(표본데이터(리스트형태 등),모평균값 , alternative='two-sided' or 'less' or 'greater')
+print(result) # 검정통계량, p-value -> 0.05보다 작으면 표본은 모집단과 평균이 다르다
+
+# 독립표본 t검정: 두 집단 평균차이 검정
+result= stats.ttest_ind(A, B, alternative='less' or 'greater' or 'two-sided') 
+print(result) # 검정통계량, p-value -> 0.05보다 작으면 두 집단은 다르다 
+
+# 대응표본 t검정 : 한 집단의 전 후 차이 검정
+result=stats.ttest_rel(before, after, alternative='greater' or 'less' or 'two-sided')
+print(result) # 검정통계량, p-value -> 0.05보다 작으면 어떤 약이 집단에 유의미한 차이를 부여했다
+
+
+### 분산분석(ANOVA) -> 집단 3개이상의 평균을 비교 
+from scipy import stats # 일원분산분석(One-way_ANOVA) 
+from statsmodels.formula.api import ols # 이원분산분석모델 생성  
+import statsmodels.api as sm # 이원분산분석(Two_way_ANOVA) 
+
