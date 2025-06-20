@@ -160,3 +160,16 @@ chi2, pvalue, df, evalue = stats.chi2_contingency(observed= table) # 독립성 �
 print('chi2 = %.6f, pvalue = %.6f, d.f = %d'%(chi2, pvalue))
  #0.05보다 크면 성별과 공포영화선호도간에 관련성이 없다.
  #0.05보다 작으면 성별과 공포영화선호도간에 관련성이 있다. -> 차이가 있다.
+
+
+
+
+###상관계수: 두 숫자형 변수 간의 관계의 강도와 방향을 파악하는 통계적 방법
+- x,y가 바껴도 상관관계는 그대로  corr(x,y)==corr(y,x)
+- 상관계수를 계산할 때 각 변수를 모두 표준화하기 때문에 단위의 영향을 받지 않음
+- 상관계수 r은 항상 -1과 1사이의 숫자
+from scipy.stats import pearsonr
+data = pd.DataFrame({'공부시간': [1, 2, 3, 4, 5],
+                    '점수': [55, 55, 65, 65, 75]})
+r, p = pearsonr(data['공부시간'], data['점수'])
+r= 상관계수, p=p-value(0.05이하여야 두 변수 간 상관관계있다) 
