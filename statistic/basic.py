@@ -138,3 +138,25 @@ anova_table = sm.stats.anova_lm(model)
 print(anova_table)
 
 # 다원 변량 분산분석:독립변수(x)여러개, 종속변수(y) 여러개
+
+
+
+
+### 카이제곱검정
+1. 적합도 검정(1개의 변인): 한 개의 확률변수의 적합성 검정 - 일원
+
+게임에서 사용하는 주사위가 공정한지 알아보기 위하여 60번 던지는 실험
+real_data = [4, 6, 17, 16, 8, 9] # 관측값 - 관측도수 
+exp_data = [10,10,10,10,10,10] # 기대값 - 기대도수 
+chis = stats.chisquare(real_data, exp_data)
+print(chis) # 0.05보다 크면 귀무가설:각 눈금의 확률이 1/6로 동일한 주사위에서 얻은 표본이다을 채택
+            # else: 각 눈금의 확률이 1/6로 동일한 주사위에서 얻은 표본이 아니다.-> 공정하지 않다
+
+2. 독립성 검정(2개의 변인) : 범주(집단)별로 차이가 있는지를 검정
+
+예시) 남녀집단(변수1)과 공포영화선호도(변수2)
+table = pd.crosstab(index=sex, columns=horror) # 교차분할표
+chi2, pvalue, df, evalue = stats.chi2_contingency(observed= table) # 독립성 검정
+print('chi2 = %.6f, pvalue = %.6f, d.f = %d'%(chi2, pvalue))
+ #0.05보다 크면 성별과 공포영화선호도간에 관련성이 없다.
+ #0.05보다 작으면 성별과 공포영화선호도간에 관련성이 있다. -> 차이가 있다.
